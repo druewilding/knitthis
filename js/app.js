@@ -220,23 +220,40 @@ function renderPatternInfo() {
         sizeSelect.onchange = (e) => {
             currentSizeIndex = parseInt(e.target.value);
             currentSize = p.sizes[currentSizeIndex];
+            updateStartButton();
         };
     } else {
         currentSize = {};
         sizeSelector.classList.add('hidden');
     }
     
-    // Update start button text if there's saved progress
+    updateStartButton();
+}
+
+// Update start button and reset button based on saved progress
+function updateStartButton() {
     const startBtn = document.getElementById('start-pattern');
+    const resetBtn = document.getElementById('reset-progress');
+    
     flattenPattern();
     if (loadProgress()) {
         startBtn.textContent = `Continue from Step ${currentStepIndex + 1}`;
+        resetBtn.classList.remove('hidden');
     } else {
         startBtn.textContent = 'Start Knitting';
+        resetBtn.classList.add('hidden');
     }
     // Reset for fresh start check
     currentStepIndex = 0;
     completedSteps.clear();
+}
+
+// Reset progress and start fresh
+function resetProgress() {
+    if (confirm('Are you sure you want to start over? Your progress will be lost.')) {
+        clearProgress();
+        updateStartButton();
+    }
 }
 
 // Flatten pattern into sequential steps
@@ -312,15 +329,18 @@ function resetStepContainer() {
         <div id="step-counter"></div>
         <div id="step-content"></div>
     `;
-    // Reset next button handler
+    // Reset next button text (handler is set once in DOMContentLoaded)
     document.getElementById('next-btn').textContent = 'Next';
-    document.getElementById('next-btn').onclick = nextStep;
 }
+
+// Track if pattern is complete
+let patternComplete = false;
 
 // Render current step
 function renderStep() {
     if (currentStepIndex >= flattenedSteps.length) {
         // Pattern complete
+        patternComplete = true;
         document.getElementById('step-container').innerHTML = `
             <div class="complete-message">
                 <h2>🎉 Pattern Complete!</h2>
@@ -328,14 +348,10 @@ function renderStep() {
             </div>
         `;
         document.getElementById('next-btn').textContent = 'Done';
-        document.getElementById('next-btn').onclick = () => {
-            clearProgress();
-            renderPatternList();
-            showView('patternList');
-        };
         return;
     }
     
+    patternComplete = false;
     const step = flattenedSteps[currentStepIndex];
     
     // Update section name
@@ -365,6 +381,14 @@ function renderStep() {
 
 // Navigation
 function nextStep() {
+    if (patternComplete) {
+        // Handle "Done" button
+        clearProgress();
+        renderPatternList();
+        showView('patternList');
+        return;
+    }
+    
     completedSteps.add(currentStepIndex);
     if (currentStepIndex < flattenedSteps.length) {
         currentStepIndex++;
@@ -419,18 +443,29 @@ function renderOverview() {
     });
 }
 
+// Go back to pattern info from step view
+function goToPatternInfo() {
+    renderPatternInfo();
+    showView('patternInfo');
+}
+
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
     renderPatternList();
     showView('patternList');
     
-    document.getElementById('back-to-list').addEventListener('click', () => showView('patternList'));
-    document.getElementById('back-to-info').addEventListener('click', () => {
+    document.getElementById('back-to-list').addEventListener('click', () => {
+        renderPatternList();
+        showView('patternList');
+    });
+    document.getElementById('back-to-pattern-info').addEventListener('click', goToPatternInfo);
+    document.getElementById('view-checklist').addEventListener('click', () => {
         renderOverview();
         showView('overview');
     });
     document.getElementById('back-to-step').addEventListener('click', () => showView('step'));
     document.getElementById('start-pattern').addEventListener('click', startPattern);
+    document.getElementById('reset-progress').addEventListener('click', resetProgress);
     document.getElementById('next-btn').addEventListener('click', nextStep);
     document.getElementById('prev-btn').addEventListener('click', prevStep);
 });

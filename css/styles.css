@@ -75,6 +75,28 @@ button {
     background: #ccc;
 }
 
+.secondary-btn {
+    background: none;
+    color: #FF3B30;
+    width: 100%;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.secondary-btn:hover {
+    background: rgba(255, 59, 48, 0.1);
+}
+
+#pattern-actions {
+    margin-top: 20px;
+}
+
+.step-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .nav-btn {
     background: #e0e0e0;
     color: #333;

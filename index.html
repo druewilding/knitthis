@@ -29,13 +29,19 @@
                 <label for="size-select">Select size:</label>
                 <select id="size-select"></select>
             </div>
-            <button id="start-pattern" class="primary-btn">Start Knitting</button>
+            <div id="pattern-actions">
+                <button id="start-pattern" class="primary-btn">Start Knitting</button>
+                <button id="reset-progress" class="secondary-btn hidden">Start Over</button>
+            </div>
         </div>
 
         <!-- Step View -->
         <div id="step-view" class="view hidden">
             <header>
-                <button id="back-to-info" class="back-btn">← Overview</button>
+                <div class="step-header-row">
+                    <button id="back-to-pattern-info" class="back-btn">← Pattern</button>
+                    <button id="view-checklist" class="back-btn">Checklist</button>
+                </div>
                 <div id="progress-bar">
                     <div id="progress-fill"></div>
                 </div>
