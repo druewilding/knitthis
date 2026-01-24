@@ -29,42 +29,62 @@ sizes:
     heelSts: 34
     topPanelSts: 12
     topPanelRows: 12
+    soleRepeats: 13
+    seamYarnLength: 150
   - name: UK size 4 (EU size 37)
     heelSts: 34
     topPanelSts: 12
     topPanelRows: 14
+    soleRepeats: 14
+    seamYarnLength: 150
   - name: UK size 5 (EU size 38)
     heelSts: 34
     topPanelSts: 12
     topPanelRows: 16
+    soleRepeats: 15
+    seamYarnLength: 150
   - name: UK size 6 (EU size 39)
     heelSts: 34
     topPanelSts: 12
     topPanelRows: 18
+    soleRepeats: 16
+    seamYarnLength: 150
   - name: UK size 7 (EU size 41)
     heelSts: 35
     topPanelSts: 13
     topPanelRows: 20
+    soleRepeats: 17
+    seamYarnLength: 160
   - name: UK size 8 (EU size 42)
     heelSts: 35
     topPanelSts: 13
     topPanelRows: 22
+    soleRepeats: 18
+    seamYarnLength: 160
   - name: UK size 9 (EU size 43)
     heelSts: 35
     topPanelSts: 13
     topPanelRows: 24
+    soleRepeats: 19
+    seamYarnLength: 160
   - name: UK size 10 (EU size 45)
     heelSts: 36
     topPanelSts: 14
     topPanelRows: 26
+    soleRepeats: 20
+    seamYarnLength: 170
   - name: UK size 11 (EU size 46)
     heelSts: 36
     topPanelSts: 14
     topPanelRows: 28
+    soleRepeats: 21
+    seamYarnLength: 170
   - name: UK size 12 (EU size 47)
     heelSts: 36
     topPanelSts: 14
     topPanelRows: 30
+    soleRepeats: 22
+    seamYarnLength: 170
 
 sections:
   - name: Heel Panel
@@ -97,12 +117,12 @@ sections:
       - Pick up 8 more sts along the left edge of the heel panel starting from the bind-off edge. This is approx. equivalent to picking up 2 sts every 3 rows.
       - You should now have a total of {topPanelSts + 16} sts on your needles.
       - The next row after picking up and casting on sts is a WS row.
-      - Remember to alternate 4-row stripes of Colour A and Colour B as you work the top panel.
+      - Remember to alternate 4-row stripes of Colour A and Colour B as you work the top panel as follows ...
       - repeat: "{topPanelRows / 2}"
         steps:
           - P all sts.
           - K all sts.
-      - You will now begin to shape the top panel towards the toe, decreasing 2 sts every 4 rows.
+      - You will now begin to shape the top panel towards the toe, decreasing 2 sts every 4 rows as follows ...
       - repeat: 3
         steps:
           - P all sts.
@@ -110,9 +130,91 @@ sections:
           - P all sts.
           - K1, ssk, k to 3sts before end, k2tog, k1.
       - You should now have a total of {topPanelSts + 10} sts on your needles.
-      - You will now begin decreasing 2 sts every other row.
+      - You will now begin decreasing 2 sts every other row as follows ...
       - repeat: 5
         steps:
           - P all sts.
           - K1, ssk, k to 3sts before end, k2tog, k1
       - You should now have a total of {topPanelSts} sts on your needles.
+
+  - name: Sole
+    instructions:
+      - Add in Colour D on the WS, leaving a tail to weave in later.
+      - P all sts.
+      - K1, ssk, k to 3sts before end, k2tog, k1.
+      - You should now have {topPanelSts - 2} sts on your needles.
+      - Working from the toe towards the heel, increase 2 sts every other row as follows ...
+      - repeat: 3
+        steps:
+          - P all sts.
+          - K2, m1l, k to 2 sts before end, m1r, k2.
+      - You should now have {topPanelSts + 4} sts on your needles.
+      - To set up sole shaping for the left and right foot, you will increase 1 st as follows ...
+      - P all sts.
+      - "**LEFT FOOT:** K to 2 sts before end, m1r, k2 -- **RIGHT FOOT:** K2, m1l, k to end."
+      - You should now have {topPanelSts + 5} sts on your needles
+      - Further increases will be worked 1 st every 4 rows as follows ...
+      - repeat: 2
+        steps:
+          - P all sts.
+          - K all sts.
+          - P all sts.
+          - "**LEFT FOOT:** K to 2 sts before end, m1r, k2 -- **RIGHT FOOT:** K2, m1l, k to end."
+      - You should now have {topPanelSts + 7} sts on your needles.
+      - Brace yourself! You will now stockinette stitch for {soleRepeats * 2} rows to form the sole of the slipper.
+      - repeat: "{soleRepeats}"
+        steps:
+          - P all sts.
+          - K all sts.
+      - You will now begin decreasing 1 st every 4 rows as follows ...
+      - repeat: 2
+        steps:
+          - P all sts.
+          - K all sts.
+          - P all sts.
+          - "**LEFT FOOT:** K to 3 sts before end, k2tog, k1 -- **RIGHT FOOT:** K1, ssk, k to end."
+      - You should now have {topPanelSts + 5} sts on your needles.
+      - To finish up the sole shaping for the left and right foot, decrease 1 st as follows ...
+      - P all sts.
+      - "**LEFT FOOT:** K to 3 sts before end, k2tog, k1 -- **RIGHT FOOT:** K1, ssk, k to end."
+      - You should now have {topPanelSts + 4} sts on your needles.
+      - Now shape the heel, decreasing 2 sts every other row, as follows ...
+      - repeat: 3
+        steps:
+          - P all sts.
+          - K1, ssk, k to 3sts before end, k2tog, k1.
+      - You should now have {topPanelSts} sts on your needles.
+      - Turn your work to the WS and bind off purlwise.
+      - Break the yarn.
+
+  - name: Seaming the slippers
+    instructions:
+      - Using Colour D, cut a length of yarn that measures approx. {seamYarnLength}cm.
+      - "*Note:* If using a single ply yarn like Drops Snow, make sure to keep twisting the yarn as you seam so the yarn doesn't break."
+      - Seam from the toe to the heel panel seam using **mattress stitch**.
+      - Seam the heel panel to the stitch marker using **Kitchener and mattress stitch**.
+      - Seam between the stitch markers using **Kitchener stitch**.
+      - Seam to the heel panel seam using **Kitchener and mattress stitch**.
+      - Seam to the toe using **mattress stitch**.
+      - Pass the tapestry needle through to the inside of the slippers for weaving in.
+
+  - name: Applied I-cord edge
+    instructions:
+      - Using 8mm needles and Colour D, cast on 3 sts using long-tail cast on.
+      - Pick up 1 st at any point along the edge of the opening.
+      - You should now have 4 sts on your needle.
+      - "Slip all sts to the left needle. | K2, k2tog tbl, k1 and pick up another stitch. -- *Continue this all the way around, in every stitch.*"
+      - Break the yarn, leaving a tail of around 25cm.
+      - Thread the tail onto a tapestry needle.
+      - Using **Kitchener stitch**, graft the live sts onto the cast-on sts.
+      - Weave in your ends.
+      - Repeat all steps for the other slipper.
+
+  - name: Washing and felting
+    instructions:
+      - Wash the slippers in the washing machine at 40°C (104°F), 800-1200rpm, with a small amount of non-bio detergent.
+      - Adding a small towel in with the slippers will increase the friction and speed up the felting process.
+      - Immediately after washing when the slippers are still wet, shape to your foot. Make sure to firmly push the seams out from the inside of the slippers to help with shaping and structure.
+      - If the slippers are **too big**, simply wash again on the same cycle and shape to size. If they are **too small**, gently stretch the fabric to the correct size when wet.
+      - Leave the slippers to dry and you are done!
+      - "**Optional:** Apply small dots (5-6mm apart) of a latex liquid like Rico Sock Shop to the sole of the slippers to make them non-stick."
