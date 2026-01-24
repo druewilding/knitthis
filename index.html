@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>KnitThis</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Pattern List View -->
+        <div id="pattern-list-view" class="view">
+            <header>
+                <h1>KnitThis</h1>
+                <p class="subtitle">Knitting patterns, one step at a time</p>
+            </header>
+            <div id="pattern-list"></div>
+        </div>
+
+        <!-- Pattern Info View -->
+        <div id="pattern-info-view" class="view hidden">
+            <header>
+                <button id="back-to-list" class="back-btn">← Patterns</button>
+                <h1 id="pattern-title"></h1>
+            </header>
+            <div id="pattern-info"></div>
+            <div id="size-selector" class="hidden">
+                <label for="size-select">Select size:</label>
+                <select id="size-select"></select>
+            </div>
+            <button id="start-pattern" class="primary-btn">Start Knitting</button>
+        </div>
+
+        <!-- Step View -->
+        <div id="step-view" class="view hidden">
+            <header>
+                <button id="back-to-info" class="back-btn">← Overview</button>
+                <div id="progress-bar">
+                    <div id="progress-fill"></div>
+                </div>
+            </header>
+            <div id="step-container">
+                <div id="section-name"></div>
+                <div id="step-counter"></div>
+                <div id="step-content"></div>
+            </div>
+            <div id="step-nav">
+                <button id="prev-btn" class="nav-btn">Previous</button>
+                <button id="next-btn" class="nav-btn primary-btn">Next</button>
+            </div>
+        </div>
+
+        <!-- Overview/Checklist View -->
+        <div id="overview-view" class="view hidden">
+            <header>
+                <button id="back-to-step" class="back-btn">← Continue</button>
+                <h1>Overview</h1>
+            </header>
+            <div id="overview-list"></div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>

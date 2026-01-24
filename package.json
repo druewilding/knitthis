@@ -1,0 +1,12 @@
+{
+  "name": "knitthis",
+  "version": "1.0.0",
+  "description": "Easy to follow along knitting patterns",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "scripts": {
+    "start": "live-server --port=3000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
