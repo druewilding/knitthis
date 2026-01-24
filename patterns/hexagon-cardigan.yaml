@@ -1,0 +1,90 @@
+name: Hexagon Cardigan (crochet)
+description: A cozy and stylish hexagon cardigan that's perfect for layering.
+notes: This is US terminology. The cardigan is worked in the round from the armpits out.
+
+skillLevel: Intermediate
+
+techniques:
+  - Magic ring
+  - Double crochet
+  - Double crochet 2 together
+  - Chain stitch
+  - Slip stitch
+  - Ribbing
+
+materials:
+  - Acrylic yarn, about 300g
+  - 8mm crochet hook
+  - 5mm crochet hook for pockets (optional)
+  - Tapestry needle for weaving in ends
+  - Scissors
+
+abbreviations:
+  ch: chain
+  dc: double crochet
+  dc2tog: double crochet 2 together
+  slst: slip stitch
+
+sizes:
+  - name: Small
+
+sections:
+  - name: Body and sleeve (make 2)
+    instructions:
+      - Start with a magic ring on 8mm crochet hook.
+      - Make 6 x 3 dc clusters separated by ch-2 spaces into the magic ring.
+      - Tighten the magic ring and fasten off tightly.
+      - repeat: 13
+        steps:
+          - Make 3 dc clusters into each space, use ch-2 spaces for the corners.
+      - Join along the top seam.
+      - Extend the sleeve as follows ...
+      - repeat: 12
+        steps:
+          - Make 3 dc clusters into each space.
+      - You will now start decreasing for the sleeve edge.
+      - Make 1 row of dc around the sleeve edge.
+      - repeat: 3
+        steps:
+          - dc 2, then dc2tog around.
+      - You will now work ribbing for the sleeve cuff. Optionally switch to a different colour for contrast.
+      - dc around the sleeve edge.
+      - repeat: 4
+        steps:
+          - dc ribbing (alternate front post and back post).
+      - Fasten off and weave in ends.
+      - You will now extend the body as follows ...
+      - repeat: 5
+        steps:
+          - Make 3 dc clusters into each space, use ch-2 spaces for the corners.
+      - Repeat everything done so far for the second half of the cardigan.
+
+  - name: Joining Body
+    instructions:
+      - On one half, add 3 dc clusters down the back.
+      - On the other half, make a joining row of 3 dc clusters.
+
+  - name: Extending Body down
+    instructions:
+      - Try on the cardigan. Extend the body down with 3 dc clusters if you want it to be longer.
+
+  - name: Border
+    instructions:
+      - You will now work ribbing for the body edge. Optionally switch to a different colour for contrast.
+      - dc around the body edge.
+      - repeat: 2
+        steps:
+          - dc ribbing (alternate front post and back post). Use ch-3 for corners.
+
+  - name: Pockets (make 2, optional)
+    instructions:
+      - Start with a magic ring on 5mm crochet hook.
+      - Make 6 x 3 dc clusters separated by ch-3 spaces into the magic ring.
+      - Tighten the magic ring and fasten off tightly.
+      - repeat: 6
+        steps:
+          - Use dc to make a solid granny square
+      - Optionally switch to a different colour for contrast.
+      - Use ribbing for one edge of the pocket. This will be the opening.
+      - Fasten off and break the yarn leaving a long tail for sewing.
+      - Sew the pocket onto the cardigan.
