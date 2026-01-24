@@ -357,6 +357,28 @@ function resetStepContainer() {
 // Track if pattern is complete
 let patternComplete = false;
 
+// Format text with markdown-style syntax
+function formatText(text) {
+    let html = text
+        // Escape HTML first
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        // Bold: **text** or __text__
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/__(.+?)__/g, '<strong>$1</strong>')
+        // Italic: *text* or _text_
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/_(.+?)_/g, '<em>$1</em>')
+        // Line breaks: | or \n
+        .replace(/\s*\|\s*/g, '<br>')
+        .replace(/\\n/g, '<br>')
+        // Horizontal separator: --
+        .replace(/\s*--\s*/g, '<hr class="step-divider">');
+    
+    return html;
+}
+
 // Render current step
 function renderStep() {
     if (currentStepIndex >= flattenedSteps.length) {
@@ -384,8 +406,8 @@ function renderStep() {
     document.getElementById('step-counter').textContent = 
         `Step ${currentStepIndex + 1} of ${flattenedSteps.length}`;
     
-    // Update content
-    document.getElementById('step-content').textContent = step.text;
+    // Update content with formatting
+    document.getElementById('step-content').innerHTML = formatText(step.text);
     
     // Update progress bar
     const progress = ((currentStepIndex + 1) / flattenedSteps.length) * 100;
@@ -443,7 +465,7 @@ function renderOverview() {
         html += `
             <div class="overview-item ${isCompleted ? 'completed' : ''}" data-index="${index}">
                 <span class="check">${isCompleted ? '✓' : ''}</span>
-                <span class="text">${step.text}</span>
+                <span class="text">${formatText(step.text)}</span>
             </div>
         `;
     });
