@@ -24,7 +24,7 @@
         <div id="pattern-info-view" class="view hidden">
             <header>
                 <div class="step-header-row">
-                    <button id="back-to-list" class="back-btn">← Patterns</button>
+                    <button id="back-to-list" class="back-btn">← All Patterns</button>
                 </div>
                 <h1 id="pattern-title"></h1>
             </header>
@@ -43,7 +43,7 @@
         <div id="step-view" class="view hidden">
             <header>
                 <div class="step-header-row">
-                    <button id="view-checklist" class="back-btn">← Checklist</button>
+                    <button id="view-checklist" class="back-btn">← Pattern overview</button>
                 </div>
                 <div id="progress-bar">
                     <div id="progress-fill"></div>
@@ -60,14 +60,15 @@
             </div>
         </div>
 
-        <!-- Overview/Checklist View -->
+        <!-- Overview View -->
         <div id="overview-view" class="view hidden">
             <header>
                 <div class="step-header-row">
-                    <button id="back-to-pattern-info" class="back-btn">← Pattern</button>
-                    <button id="back-to-step" class="back-btn">Continue →</button>
+                    <button id="back-to-pattern-info" class="back-btn">← Pattern summary</button>
+                    <button id="back-to-step" class="back-btn">Continue making →</button>
                 </div>
-                <h1>Checklist</h1>
+                <h1 id="overview-title">Overview</h1>
+                <p id="overview-subtitle" class="subtitle"></p>
             </header>
             <div id="overview-list"></div>
         </div>

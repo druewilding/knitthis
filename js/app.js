@@ -497,6 +497,11 @@ function prevStep() {
 
 // Render overview/checklist
 function renderOverview() {
+    // Set title and subtitle
+    document.getElementById('overview-title').textContent = currentPattern?.name || 'Overview';
+    const sizeName = currentSize?.name;
+    document.getElementById('overview-subtitle').textContent = sizeName || '';
+    
     const container = document.getElementById('overview-list');
     let html = '';
     let currentSection = null;
