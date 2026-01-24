@@ -108,17 +108,17 @@ sections:
 
 ### Pattern Schema
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `name` | string | Pattern title |
-| `description` | string | Short description |
-| `notes` | string | Tips or notes before starting |
-| `materials` | list | Required materials |
-| `gauge` | object | `{ stitches, rows, unit }` |
-| `abbreviations` | object | Key-value pairs of abbreviations |
-| `sizes` | list | Size options with variables |
-| `sections` | list | Named sections with instructions |
-| `instructions` | list | Simple list (if not using sections) |
+| Field           | Type   | Description                         |
+| --------------- | ------ | ----------------------------------- |
+| `name`          | string | Pattern title                       |
+| `description`   | string | Short description                   |
+| `notes`         | string | Tips or notes before starting       |
+| `materials`     | list   | Required materials                  |
+| `gauge`         | object | `{ stitches, rows, unit }`          |
+| `abbreviations` | object | Key-value pairs of abbreviations    |
+| `sizes`         | list   | Size options with variables         |
+| `sections`      | list   | Named sections with instructions    |
+| `instructions`  | list   | Simple list (if not using sections) |
 
 ### Variables
 
@@ -145,21 +145,45 @@ instructions:
       - Purl one row
 ```
 
+### Text Formatting
+
+Instructions support markdown-style formatting for emphasis and layout:
+
+| Syntax     | Result                         |
+| ---------- | ------------------------------ |
+| `**text**` | **Bold** (highlighted in blue) |
+| `*text*`   | *Italic*                       |
+| `\|`       | Line break                     |
+| `--`       | Horizontal divider             |
+
+Example with left/right variations:
+
+```yaml
+instructions:
+  - "**LEFT FOOT:** K to 2 sts before end, m1r, k2 | **RIGHT FOOT:** K2, m1l, k to end"
+  - "Bind off all stitches -- *Tip: Use a larger needle for a looser edge*"
+```
+
+### Math Expressions
+
+Variables can include simple math:
+
+```yaml
+sizes:
+  - name: Medium
+    totalSts: 40
+
+instructions:
+  - "You should have {totalSts / 2} stitches on each needle"  # Shows "20 stitches"
+  - "Decrease to {totalSts - 6} stitches"  # Shows "34 stitches"
+```
+
 ## Adding New Patterns
 
 1. Create a new `.yaml` file in the `patterns/` directory
-2. Add the pattern to the `PATTERNS` array in `js/app.js`:
-
-```javascript
-const PATTERNS = [
-    { file: 'sample-pattern.yaml', name: 'Sample Pattern' },
-    { file: 'my-new-pattern.yaml', name: 'My New Pattern' }
-];
-```
+2. Add the filename to `patterns/index.json`
+3. Your pattern will appear in the app
 
 ## License
 
 ISC
-
-## License
-This project is licensed under the ISC License.
