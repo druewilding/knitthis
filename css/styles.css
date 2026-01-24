@@ -124,7 +124,7 @@ button {
 }
 
 .pattern-card:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .pattern-card-header {
@@ -438,11 +438,11 @@ button {
     #app {
         max-width: 100%;
     }
-    
+
     .view {
         padding: 15px;
     }
-    
+
     #step-content {
         font-size: 1.3rem;
     }

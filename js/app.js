@@ -99,7 +99,7 @@ async function loadPatternMetadata(file) {
 async function renderPatternList() {
     const container = document.getElementById('pattern-list');
     const allProgress = getAllProgress();
-    
+
     // Load all pattern metadata
     const patternData = await Promise.all(
         PATTERNS.map(async p => ({
@@ -107,12 +107,12 @@ async function renderPatternList() {
             metadata: await loadPatternMetadata(p.file)
         }))
     );
-    
+
     container.innerHTML = patternData.map(p => {
         // Check if there's any saved progress for this pattern
         const progressKeys = Object.keys(allProgress).filter(k => k.startsWith(p.file));
         let progressHtml = '';
-        
+
         if (progressKeys.length > 0) {
             progressKeys.forEach(key => {
                 const prog = allProgress[key];
@@ -126,17 +126,17 @@ async function renderPatternList() {
                 `;
             });
         }
-        
+
         // Skill level badge
         let skillBadgeHtml = '';
         if (p.metadata?.skillLevel) {
             const levelClass = p.metadata.skillLevel.toLowerCase().replace(/\s+/g, '-');
             skillBadgeHtml = `<span class="skill-badge skill-${levelClass}">${p.metadata.skillLevel}</span>`;
         }
-        
+
         // Description
         const description = p.metadata?.description || 'Tap to view pattern';
-        
+
         return `
             <div class="pattern-card" data-file="${p.file}">
                 <div class="pattern-card-header">
@@ -148,7 +148,7 @@ async function renderPatternList() {
             </div>
         `;
     }).join('');
-    
+
     // Click on card to view pattern info
     container.querySelectorAll('.pattern-card').forEach(card => {
         card.addEventListener('click', (e) => {
@@ -157,7 +157,7 @@ async function renderPatternList() {
             loadPattern(card.dataset.file);
         });
     });
-    
+
     // Resume buttons
     container.querySelectorAll('.resume-btn').forEach(btn => {
         btn.addEventListener('click', async (e) => {
@@ -175,14 +175,14 @@ async function loadPattern(file, sizeIndex = 0, resumeImmediately = false) {
         currentPatternFile = file;
         currentPattern = await loadYAML(`patterns/${file}`);
         currentSizeIndex = sizeIndex;
-        
+
         // Set up size
         if (currentPattern.sizes && currentPattern.sizes.length > 0) {
             currentSize = currentPattern.sizes[sizeIndex];
         } else {
             currentSize = {};
         }
-        
+
         if (resumeImmediately) {
             flattenPattern();
             loadProgress();
@@ -203,19 +203,19 @@ async function loadPattern(file, sizeIndex = 0, resumeImmediately = false) {
 function renderPatternInfo() {
     const p = currentPattern;
     document.getElementById('pattern-title').textContent = p.name;
-    
+
     let html = '';
-    
+
     if (p.description) {
         html += `<p>${p.description}</p>`;
     }
-    
+
     // Skill level badge
     if (p.skillLevel) {
         const levelClass = p.skillLevel.toLowerCase().replace(/\s+/g, '-');
         html += `<div class="pattern-meta"><span class="skill-badge skill-${levelClass}">${p.skillLevel}</span></div>`;
     }
-    
+
     // Techniques list
     if (p.techniques && p.techniques.length > 0) {
         html += `<h2>Techniques</h2><ul>`;
@@ -224,11 +224,11 @@ function renderPatternInfo() {
         });
         html += '</ul>';
     }
-    
+
     if (p.notes) {
         html += `<h2>Notes</h2><p>${p.notes}</p>`;
     }
-    
+
     if (p.materials) {
         html += `<h2>Materials</h2><ul>`;
         p.materials.forEach(m => {
@@ -240,11 +240,11 @@ function renderPatternInfo() {
         });
         html += '</ul>';
     }
-    
+
     if (p.gauge) {
         html += `<h2>Gauge</h2><p>${p.gauge.stitches} sts × ${p.gauge.rows} rows = ${p.gauge.unit || '10cm'}</p>`;
     }
-    
+
     if (p.abbreviations) {
         html += `<h2>Abbreviations</h2><dl class="abbrev-list">`;
         Object.entries(p.abbreviations).forEach(([abbr, meaning]) => {
@@ -252,21 +252,21 @@ function renderPatternInfo() {
         });
         html += '</dl>';
     }
-    
+
     document.getElementById('pattern-info').innerHTML = html;
-    
+
     // Size selector
     const sizeSelector = document.getElementById('size-selector');
     const sizeSelect = document.getElementById('size-select');
-    
+
     if (p.sizes && p.sizes.length > 0) {
-        sizeSelect.innerHTML = p.sizes.map((s, i) => 
+        sizeSelect.innerHTML = p.sizes.map((s, i) =>
             `<option value="${i}">${s.name}</option>`
         ).join('');
         sizeSelect.value = currentSizeIndex;
         currentSize = p.sizes[currentSizeIndex];
         sizeSelector.classList.remove('hidden');
-        
+
         sizeSelect.onchange = (e) => {
             currentSizeIndex = parseInt(e.target.value);
             currentSize = p.sizes[currentSizeIndex];
@@ -276,7 +276,7 @@ function renderPatternInfo() {
         currentSize = {};
         sizeSelector.classList.add('hidden');
     }
-    
+
     updateStartButton();
 }
 
@@ -284,7 +284,7 @@ function renderPatternInfo() {
 function updateStartButton() {
     const startBtn = document.getElementById('start-pattern');
     const resetBtn = document.getElementById('reset-progress');
-    
+
     flattenPattern();
     if (loadProgress()) {
         startBtn.textContent = `Continue from Step ${currentStepIndex + 1}`;
@@ -310,7 +310,7 @@ function resetProgress() {
 function flattenPattern() {
     flattenedSteps = [];
     const p = currentPattern;
-    
+
     // Process sections
     if (p.sections) {
         p.sections.forEach(section => {
@@ -333,7 +333,7 @@ function processInstructions(instructions, sectionName) {
             // Handle repeat blocks
             const times = substituteVariables(instruction.repeat);
             const repeatCount = parseInt(times) || 1;
-            
+
             for (let i = 1; i <= repeatCount; i++) {
                 instruction.steps.forEach(step => {
                     flattenedSteps.push({
@@ -350,7 +350,7 @@ function processInstructions(instructions, sectionName) {
 // Substitute variables like {stitches} or expressions like {heelSts - 26}
 function substituteVariables(text) {
     if (typeof text !== 'string') return String(text);
-    
+
     // Match {expression} where expression can contain variable names and math operators
     return text.replace(/\{([^}]+)\}/g, (match, expression) => {
         try {
@@ -361,7 +361,7 @@ function substituteVariables(text) {
                 }
                 return varName; // Keep as-is if not found (might be an error)
             });
-            
+
             // Check if it's a simple math expression (only numbers, operators, spaces, parentheses)
             if (/^[\d\s+\-*/%().]+$/.test(substitutedExpr)) {
                 // Evaluate the math expression
@@ -369,7 +369,7 @@ function substituteVariables(text) {
                 // Return integer if whole number, otherwise round to 1 decimal
                 return Number.isInteger(result) ? result : Math.round(result * 10) / 10;
             }
-            
+
             // If it's just a single variable that was substituted, return it
             return substitutedExpr.trim();
         } catch (e) {
@@ -424,7 +424,7 @@ function formatText(text) {
         .replace(/\\n/g, '<br>')
         // Horizontal separator: --
         .replace(/\s*--\s*/g, '<hr class="step-divider">');
-    
+
     return html;
 }
 
@@ -442,31 +442,31 @@ function renderStep() {
         document.getElementById('next-btn').textContent = 'Done';
         return;
     }
-    
+
     patternComplete = false;
     const step = flattenedSteps[currentStepIndex];
-    
+
     // Update section name
     const sectionEl = document.getElementById('section-name');
     sectionEl.textContent = step.section || '';
     sectionEl.style.display = step.section ? 'block' : 'none';
-    
+
     // Update counter
-    document.getElementById('step-counter').textContent = 
+    document.getElementById('step-counter').textContent =
         `Step ${currentStepIndex + 1} of ${flattenedSteps.length}`;
-    
+
     // Update content with formatting
     document.getElementById('step-content').innerHTML = formatText(step.text);
-    
+
     // Update progress bar
     const progress = ((currentStepIndex + 1) / flattenedSteps.length) * 100;
     document.getElementById('progress-fill').style.width = `${progress}%`;
-    
+
     // Update buttons
     document.getElementById('prev-btn').disabled = currentStepIndex === 0;
-    document.getElementById('next-btn').textContent = 
+    document.getElementById('next-btn').textContent =
         currentStepIndex === flattenedSteps.length - 1 ? 'Finish' : 'Next';
-    
+
     // Save progress
     saveProgress();
 }
@@ -480,7 +480,7 @@ function nextStep() {
         showView('patternList');
         return;
     }
-    
+
     completedSteps.add(currentStepIndex);
     if (currentStepIndex < flattenedSteps.length) {
         currentStepIndex++;
@@ -500,7 +500,7 @@ function renderOverview() {
     const container = document.getElementById('overview-list');
     let html = '';
     let currentSection = null;
-    
+
     flattenedSteps.forEach((step, index) => {
         if (step.section !== currentSection) {
             if (currentSection !== null) {
@@ -509,7 +509,7 @@ function renderOverview() {
             currentSection = step.section;
             html += `<div class="overview-section"><h2>${currentSection || 'Instructions'}</h2>`;
         }
-        
+
         const isCompleted = completedSteps.has(index);
         html += `
             <div class="overview-item ${isCompleted ? 'completed' : ''}" data-index="${index}">
@@ -518,13 +518,13 @@ function renderOverview() {
             </div>
         `;
     });
-    
+
     if (currentSection !== null) {
         html += '</div>';
     }
-    
+
     container.innerHTML = html;
-    
+
     // Click to jump to step
     container.querySelectorAll('.overview-item').forEach(item => {
         item.addEventListener('click', () => {
@@ -558,7 +558,7 @@ async function init() {
     await loadPatternIndex();
     await renderPatternList();
     showView('patternList');
-    
+
     document.getElementById('back-to-list').addEventListener('click', async () => {
         await renderPatternList();
         showView('patternList');
