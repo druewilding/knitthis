@@ -1,0 +1,71 @@
+name: Sailor Slippers, by Annie Sews
+description: The viral striped felt sailor slippers made famous by Annie Sews on TikTok. Cozy and stylish, these slippers are perfect for lounging at home.
+notes: The Sailor Slippers are worked flat in stockinette stitch starting with the heel panel.
+
+materials:
+  - 8mm circular or straight needles (US 11)
+  - Drops Snow yarn (or similar bulky weight yarn) or any similar bulky 100% wool non-superwash.
+  - Rico Sock Stop (optional)
+
+gauge:
+  stitches: 12
+  rows: 16
+  unit: 10cm (4 inches)
+
+abbreviations:
+  k: knit
+  p: purl
+  sts: stitches
+  RS: right side
+  WS: wrong side
+  tbl: through back loop
+  m1r: make one right
+  m1l: make one left
+  k2tog: knit 2 together
+  ssk: slip, slip, knit
+
+sizes:
+  - name: UK size 3 (EU size 36)
+    heelSts: 34
+  - name: UK size 4 (EU size 37)
+    heelSts: 34
+  - name: UK size 5 (EU size 38)
+    heelSts: 34
+  - name: UK size 6 (EU size 39)
+    heelSts: 34
+  - name: UK size 7 (EU size 41)
+    heelSts: 35
+  - name: UK size 8 (EU size 42)
+    heelSts: 35
+  - name: UK size 9 (EU size 43)
+    heelSts: 35
+  - name: UK size 10 (EU size 45)
+    heelSts: 36
+  - name: UK size 11 (EU size 46)
+    heelSts: 36
+  - name: UK size 12 (EU size 47)
+    heelSts: 36
+
+sections:
+  - name: Heel Panel
+    instructions:
+      - Using 8mm needles, cast on {heelSts} sts using long-tail cast on.
+      - Count 13 stitches in from the left side and place a stitch marker.
+      - Count 13 stitches in from the right side and place a second stitch marker.
+      - You should have {heelSts - 26} sts between the two markers.
+      - P all sts.
+      - K all sts.
+      - P all sts.
+      - Add in Colour B, leaving a tail to weave in later.
+      - repeat: 2
+        steps:
+          - K all sts.
+          - P all sts.
+      - Break the yarn and add in Colour A.
+      - repeat: 2
+        steps:
+          - K all sts.
+          - P all sts.
+      - You should now have worked a total of 11 rows.
+      - Bind off all sts loosely and break the yarn.
+      - You should now have three 4-row stripes, making a total of 12 rows.

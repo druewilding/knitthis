@@ -1,6 +1,7 @@
 // Available patterns (in a real app, this could be fetched from an API)
 const PATTERNS = [
-    { file: 'sample-pattern.yaml', name: 'Sample Pattern' }
+    { file: 'sample-pattern.yaml', name: 'Sample Pattern' },
+    { file: 'sailor-slippers.yaml', name: 'Sailor Slippers' }
 ];
 
 // App state
