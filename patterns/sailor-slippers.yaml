@@ -27,24 +27,44 @@ abbreviations:
 sizes:
   - name: UK size 3 (EU size 36)
     heelSts: 34
+    topPanelSts: 12
+    topPanelRows: 12
   - name: UK size 4 (EU size 37)
     heelSts: 34
+    topPanelSts: 12
+    topPanelRows: 14
   - name: UK size 5 (EU size 38)
     heelSts: 34
+    topPanelSts: 12
+    topPanelRows: 16
   - name: UK size 6 (EU size 39)
     heelSts: 34
+    topPanelSts: 12
+    topPanelRows: 18
   - name: UK size 7 (EU size 41)
     heelSts: 35
+    topPanelSts: 13
+    topPanelRows: 20
   - name: UK size 8 (EU size 42)
     heelSts: 35
+    topPanelSts: 13
+    topPanelRows: 22
   - name: UK size 9 (EU size 43)
     heelSts: 35
+    topPanelSts: 13
+    topPanelRows: 24
   - name: UK size 10 (EU size 45)
     heelSts: 36
+    topPanelSts: 14
+    topPanelRows: 26
   - name: UK size 11 (EU size 46)
     heelSts: 36
+    topPanelSts: 14
+    topPanelRows: 28
   - name: UK size 12 (EU size 47)
     heelSts: 36
+    topPanelSts: 14
+    topPanelRows: 30
 
 sections:
   - name: Heel Panel
@@ -69,3 +89,30 @@ sections:
       - You should now have worked a total of 11 rows.
       - Bind off all sts loosely and break the yarn.
       - You should now have three 4-row stripes, making a total of 12 rows.
+
+  - name: Top Panel
+    instructions:
+      - Using 8mm needles, pick up 8 sts in Colour A along the right edge of the heel panel starting from the cast-on edge. This is approx. equivalent to picking up 2 sts every 3 rows.
+      - Cast on {topPanelSts} sts in extension using backward loop method.
+      - Pick up 8 more sts along the left edge of the heel panel starting from the bind-off edge. This is approx. equivalent to picking up 2 sts every 3 rows.
+      - You should now have a total of {topPanelSts + 16} sts on your needles.
+      - The next row after picking up and casting on sts is a WS row.
+      - Remember to alternate 4-row stripes of Colour A and Colour B as you work the top panel.
+      - repeat: "{topPanelRows / 2}"
+        steps:
+          - P all sts.
+          - K all sts.
+      - You will now begin to shape the top panel towards the toe, decreasing 2 sts every 4 rows.
+      - repeat: 3
+        steps:
+          - P all sts.
+          - K all sts.
+          - P all sts.
+          - K1, ssk, k to 3sts before end, k2tog, k1.
+      - You should now have a total of {topPanelSts + 10} sts on your needles.
+      - You will now begin decreasing 2 sts every other row.
+      - repeat: 5
+        steps:
+          - P all sts.
+          - K1, ssk, k to 3sts before end, k2tog, k1
+      - You should now have a total of {topPanelSts} sts on your needles.
