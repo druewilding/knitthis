@@ -177,8 +177,21 @@ function startPattern() {
     flattenPattern();
     currentStepIndex = 0;
     completedSteps.clear();
+    resetStepContainer();
     renderStep();
     showView('step');
+}
+
+// Reset step container to original structure
+function resetStepContainer() {
+    document.getElementById('step-container').innerHTML = `
+        <div id="section-name"></div>
+        <div id="step-counter"></div>
+        <div id="step-content"></div>
+    `;
+    // Reset next button handler
+    document.getElementById('next-btn').textContent = 'Next';
+    document.getElementById('next-btn').onclick = nextStep;
 }
 
 // Render current step
