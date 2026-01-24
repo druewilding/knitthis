@@ -6,7 +6,7 @@ skillLevel: Beginner
 
 materials:
   - Cotton yarn, worsted weight, approx 50g
-  - US 7 (4.5mm) needles
+  - 4.5mm (US 7) needles
   - Tapestry needle for weaving in ends
 
 gauge:
@@ -36,8 +36,7 @@ sizes:
 sections:
   - name: Cast On
     instructions:
-      - Cast on {stitches} stitches
-      - "Tip: Use a long-tail cast on for a neat edge"
+      - "Cast on {stitches} stitches | *Tip: Use a long-tail cast on for a neat edge*"
 
   - name: Border
     instructions:
