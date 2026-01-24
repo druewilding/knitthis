@@ -34,8 +34,8 @@
                 <select id="size-select"></select>
             </div>
             <div id="pattern-actions">
-                <button id="start-pattern" class="primary-btn">Start Knitting</button>
-                <button id="reset-progress" class="secondary-btn hidden">Start Over</button>
+                <button id="start-pattern" class="primary-btn">Start Project</button>
+                <button id="reset-progress" class="secondary-btn hidden">Reset</button>
             </div>
         </div>
 
@@ -43,7 +43,8 @@
         <div id="step-view" class="view hidden">
             <header>
                 <div class="step-header-row">
-                    <button id="view-checklist" class="back-btn">← Pattern overview</button>
+                    <button id="view-checklist" class="back-btn">← Overview</button>
+                    <div id="step-pattern-info" class="header-info"></div>
                 </div>
                 <div id="progress-bar">
                     <div id="progress-fill"></div>
@@ -64,8 +65,8 @@
         <div id="overview-view" class="view hidden">
             <header>
                 <div class="step-header-row">
-                    <button id="back-to-pattern-info" class="back-btn">← Pattern summary</button>
-                    <button id="back-to-step" class="back-btn">Continue making →</button>
+                    <button id="back-to-pattern-info" class="back-btn">← Summary</button>
+                    <button id="back-to-step" class="back-btn">Continue →</button>
                 </div>
                 <h1 id="overview-title">Overview</h1>
                 <p id="overview-subtitle" class="subtitle"></p>

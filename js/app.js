@@ -290,7 +290,7 @@ function updateStartButton() {
         startBtn.textContent = `Continue from Step ${currentStepIndex + 1}`;
         resetBtn.classList.remove('hidden');
     } else {
-        startBtn.textContent = 'Start Knitting';
+        startBtn.textContent = 'Start Project';
         resetBtn.classList.add('hidden');
     }
     // Reset for fresh start check
@@ -300,7 +300,7 @@ function updateStartButton() {
 
 // Reset progress and start fresh
 function resetProgress() {
-    if (confirm('Are you sure you want to start over? Your progress will be lost.')) {
+    if (confirm('Are you sure you want to reset this project? Your progress will be lost.')) {
         clearProgress();
         updateStartButton();
     }
@@ -401,6 +401,12 @@ function resetStepContainer() {
     `;
     // Reset next button text (handler is set once in DOMContentLoaded)
     document.getElementById('next-btn').textContent = 'Next';
+    
+    // Update pattern info in header
+    const patternName = currentPattern?.name || '';
+    const sizeName = currentSize?.name || '';
+    const infoText = sizeName ? `${patternName}<br>${sizeName}` : patternName;
+    document.getElementById('step-pattern-info').innerHTML = infoText;
 }
 
 // Track if pattern is complete
