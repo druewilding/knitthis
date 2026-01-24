@@ -298,15 +298,35 @@ function processInstructions(instructions, sectionName) {
     });
 }
 
-// Substitute variables like {stitches} with size values
+// Substitute variables like {stitches} or expressions like {heelSts - 26}
 function substituteVariables(text) {
     if (typeof text !== 'string') return String(text);
     
-    return text.replace(/\{(\w+)\}/g, (match, varName) => {
-        if (currentSize && currentSize[varName] !== undefined) {
-            return currentSize[varName];
+    // Match {expression} where expression can contain variable names and math operators
+    return text.replace(/\{([^}]+)\}/g, (match, expression) => {
+        try {
+            // Replace all variable names with their values
+            const substitutedExpr = expression.replace(/[a-zA-Z_]\w*/g, (varName) => {
+                if (currentSize && currentSize[varName] !== undefined) {
+                    return currentSize[varName];
+                }
+                return varName; // Keep as-is if not found (might be an error)
+            });
+            
+            // Check if it's a simple math expression (only numbers, operators, spaces, parentheses)
+            if (/^[\d\s+\-*/%().]+$/.test(substitutedExpr)) {
+                // Evaluate the math expression
+                const result = Function('"use strict"; return (' + substitutedExpr + ')')();
+                // Return integer if whole number, otherwise round to 1 decimal
+                return Number.isInteger(result) ? result : Math.round(result * 10) / 10;
+            }
+            
+            // If it's just a single variable that was substituted, return it
+            return substitutedExpr.trim();
+        } catch (e) {
+            console.warn('Failed to evaluate expression:', expression, e);
+            return match; // Return original if evaluation fails
         }
-        return match;
     });
 }
 
