@@ -130,7 +130,7 @@ sizes:
     stitches: 34
 
 instructions:
-  - Cast on {stitches} stitches  # Becomes "Cast on 34 stitches"
+  - Cast on {stitches} stitches # Becomes "Cast on 34 stitches"
 ```
 
 ### Repeat Blocks
@@ -139,7 +139,7 @@ Repeat a group of steps multiple times:
 
 ```yaml
 instructions:
-  - repeat: 10  # or "{variableName}" for size-dependent repeats
+  - repeat: 10 # or "{variableName}" for size-dependent repeats
     steps:
       - Knit one row
       - Purl one row
@@ -152,7 +152,7 @@ Instructions support markdown-style formatting for emphasis and layout:
 | Syntax     | Result                         |
 | ---------- | ------------------------------ |
 | `**text**` | **Bold** (highlighted in blue) |
-| `*text*`   | *Italic*                       |
+| `*text*`   | _Italic_                       |
 | `\|`       | Line break                     |
 | `--`       | Horizontal divider             |
 
@@ -174,8 +174,8 @@ sizes:
     totalSts: 40
 
 instructions:
-  - "You should have {totalSts / 2} stitches on each needle"  # Shows "20 stitches"
-  - "Decrease to {totalSts - 6} stitches"  # Shows "34 stitches"
+  - "You should have {totalSts / 2} stitches on each needle" # Shows "20 stitches"
+  - "Decrease to {totalSts - 6} stitches" # Shows "34 stitches"
 ```
 
 ## Adding New Patterns
