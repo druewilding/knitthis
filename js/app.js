@@ -1,8 +1,5 @@
-// Available patterns (in a real app, this could be fetched from an API)
-const PATTERNS = [
-    { file: 'sample-pattern.yaml', name: 'Sample Pattern' },
-    { file: 'sailor-slippers.yaml', name: 'Sailor Slippers' }
-];
+// Pattern list (loaded dynamically from patterns/index.json)
+let PATTERNS = [];
 
 // App state
 let currentPatternFile = null;
@@ -82,12 +79,36 @@ function showView(viewName) {
     views[viewName].classList.remove('hidden');
 }
 
+// Cache for pattern metadata
+const patternCache = {};
+
+// Load pattern metadata (lightweight, just for list display)
+async function loadPatternMetadata(file) {
+    if (patternCache[file]) return patternCache[file];
+    try {
+        const pattern = await loadYAML(`patterns/${file}`);
+        patternCache[file] = pattern;
+        return pattern;
+    } catch (e) {
+        console.error('Failed to load pattern metadata:', file, e);
+        return null;
+    }
+}
+
 // Render pattern list
-function renderPatternList() {
+async function renderPatternList() {
     const container = document.getElementById('pattern-list');
     const allProgress = getAllProgress();
     
-    container.innerHTML = PATTERNS.map(p => {
+    // Load all pattern metadata
+    const patternData = await Promise.all(
+        PATTERNS.map(async p => ({
+            ...p,
+            metadata: await loadPatternMetadata(p.file)
+        }))
+    );
+    
+    container.innerHTML = patternData.map(p => {
         // Check if there's any saved progress for this pattern
         const progressKeys = Object.keys(allProgress).filter(k => k.startsWith(p.file));
         let progressHtml = '';
@@ -106,10 +127,23 @@ function renderPatternList() {
             });
         }
         
+        // Skill level badge
+        let skillBadgeHtml = '';
+        if (p.metadata?.skillLevel) {
+            const levelClass = p.metadata.skillLevel.toLowerCase().replace(/\s+/g, '-');
+            skillBadgeHtml = `<span class="skill-badge skill-${levelClass}">${p.metadata.skillLevel}</span>`;
+        }
+        
+        // Description
+        const description = p.metadata?.description || 'Tap to view pattern';
+        
         return `
             <div class="pattern-card" data-file="${p.file}">
-                <h2>${p.name}</h2>
-                <p>Tap to view pattern</p>
+                <div class="pattern-card-header">
+                    <h2>${p.metadata?.name || p.name}</h2>
+                    ${skillBadgeHtml}
+                </div>
+                <p>${description}</p>
                 ${progressHtml}
             </div>
         `;
@@ -174,6 +208,21 @@ function renderPatternInfo() {
     
     if (p.description) {
         html += `<p>${p.description}</p>`;
+    }
+    
+    // Skill level badge
+    if (p.skillLevel) {
+        const levelClass = p.skillLevel.toLowerCase().replace(/\s+/g, '-');
+        html += `<div class="pattern-meta"><span class="skill-badge skill-${levelClass}">${p.skillLevel}</span></div>`;
+    }
+    
+    // Techniques list
+    if (p.techniques && p.techniques.length > 0) {
+        html += `<h2>Techniques</h2><ul>`;
+        p.techniques.forEach(t => {
+            html += `<li>${t}</li>`;
+        });
+        html += '</ul>';
     }
     
     if (p.notes) {
@@ -492,13 +541,26 @@ function goToPatternInfo() {
     showView('patternInfo');
 }
 
-// Event Listeners
-document.addEventListener('DOMContentLoaded', () => {
-    renderPatternList();
+// Load pattern index from patterns/index.json
+async function loadPatternIndex() {
+    try {
+        const response = await fetch('patterns/index.json');
+        const files = await response.json();
+        PATTERNS = files.map(file => ({ file }));
+    } catch (e) {
+        console.error('Failed to load pattern index:', e);
+        PATTERNS = [];
+    }
+}
+
+// Initialize app
+async function init() {
+    await loadPatternIndex();
+    await renderPatternList();
     showView('patternList');
     
-    document.getElementById('back-to-list').addEventListener('click', () => {
-        renderPatternList();
+    document.getElementById('back-to-list').addEventListener('click', async () => {
+        await renderPatternList();
         showView('patternList');
     });
     document.getElementById('back-to-pattern-info').addEventListener('click', goToPatternInfo);
@@ -511,4 +573,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('reset-progress').addEventListener('click', resetProgress);
     document.getElementById('next-btn').addEventListener('click', nextStep);
     document.getElementById('prev-btn').addEventListener('click', prevStep);
-});
+}
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', init);

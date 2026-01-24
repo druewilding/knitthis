@@ -127,6 +127,24 @@ button {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+.pattern-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.pattern-card-header h2 {
+    margin: 0;
+    font-size: 1.1rem;
+    flex: 1;
+}
+
+.pattern-card-header .skill-badge {
+    flex-shrink: 0;
+}
+
 .pattern-card h2 {
     margin: 0 0 5px 0;
     font-size: 1.1rem;
@@ -136,6 +154,11 @@ button {
     margin: 0;
     color: #666;
     font-size: 0.9rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* Progress indicators on pattern cards */
@@ -168,6 +191,53 @@ button {
 /* Pattern Info */
 #pattern-info {
     margin-bottom: 20px;
+}
+
+/* Pattern metadata badges */
+.pattern-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 15px 0;
+}
+
+.skill-badge,
+.technique-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.skill-badge {
+    color: white;
+}
+
+.skill-beginner {
+    background: #34C759;
+}
+
+.skill-easy {
+    background: #5AC8FA;
+}
+
+.skill-intermediate {
+    background: #FF9500;
+}
+
+.skill-advanced {
+    background: #FF3B30;
+}
+
+.skill-expert {
+    background: #AF52DE;
+}
+
+.technique-badge {
+    background: #f0f0f0;
+    color: #555;
+    border: 1px solid #ddd;
 }
 
 #pattern-info h2 {

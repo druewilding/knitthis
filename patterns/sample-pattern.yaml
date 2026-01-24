@@ -2,6 +2,8 @@ name: Simple Dishcloth
 description: A beginner-friendly dishcloth pattern with a textured border.
 notes: This pattern uses simple knit and purl stitches. Great for learning!
 
+skillLevel: Beginner
+
 materials:
   - Cotton yarn, worsted weight, approx 50g
   - US 7 (4.5mm) needles
