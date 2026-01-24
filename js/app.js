@@ -4,11 +4,16 @@ const PATTERNS = [
 ];
 
 // App state
+let currentPatternFile = null;
 let currentPattern = null;
 let currentSize = null;
+let currentSizeIndex = 0;
 let flattenedSteps = [];
 let currentStepIndex = 0;
 let completedSteps = new Set();
+
+// Storage key prefix
+const STORAGE_KEY = 'knitthis_progress_';
 
 // DOM Elements
 const views = {
@@ -25,6 +30,51 @@ async function loadYAML(filePath) {
     return jsyaml.load(text);
 }
 
+// Storage functions
+function getProgressKey() {
+    const sizeName = currentSize?.name || 'default';
+    return `${STORAGE_KEY}${currentPatternFile}_${sizeName}`;
+}
+
+function saveProgress() {
+    const data = {
+        stepIndex: currentStepIndex,
+        completedSteps: Array.from(completedSteps),
+        sizeIndex: currentSizeIndex,
+        lastUpdated: Date.now()
+    };
+    localStorage.setItem(getProgressKey(), JSON.stringify(data));
+}
+
+function loadProgress() {
+    const data = localStorage.getItem(getProgressKey());
+    if (data) {
+        const parsed = JSON.parse(data);
+        currentStepIndex = parsed.stepIndex || 0;
+        completedSteps = new Set(parsed.completedSteps || []);
+        return true;
+    }
+    return false;
+}
+
+function clearProgress() {
+    localStorage.removeItem(getProgressKey());
+}
+
+function getAllProgress() {
+    const progress = {};
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith(STORAGE_KEY)) {
+            const data = JSON.parse(localStorage.getItem(key));
+            // Extract pattern file from key
+            const patternKey = key.replace(STORAGE_KEY, '');
+            progress[patternKey] = data;
+        }
+    }
+    return progress;
+}
+
 // Show a view, hide others
 function showView(viewName) {
     Object.values(views).forEach(v => v.classList.add('hidden'));
@@ -34,24 +84,80 @@ function showView(viewName) {
 // Render pattern list
 function renderPatternList() {
     const container = document.getElementById('pattern-list');
-    container.innerHTML = PATTERNS.map(p => `
-        <div class="pattern-card" data-file="${p.file}">
-            <h2>${p.name}</h2>
-            <p>Tap to view pattern</p>
-        </div>
-    `).join('');
+    const allProgress = getAllProgress();
     
+    container.innerHTML = PATTERNS.map(p => {
+        // Check if there's any saved progress for this pattern
+        const progressKeys = Object.keys(allProgress).filter(k => k.startsWith(p.file));
+        let progressHtml = '';
+        
+        if (progressKeys.length > 0) {
+            progressKeys.forEach(key => {
+                const prog = allProgress[key];
+                const sizeName = key.replace(p.file + '_', '');
+                const stepNum = prog.stepIndex + 1;
+                progressHtml += `
+                    <div class="progress-indicator" data-file="${p.file}" data-size="${sizeName}">
+                        <span class="progress-text">${sizeName}: Step ${stepNum}</span>
+                        <button class="resume-btn" data-file="${p.file}" data-size-index="${prog.sizeIndex}">Resume</button>
+                    </div>
+                `;
+            });
+        }
+        
+        return `
+            <div class="pattern-card" data-file="${p.file}">
+                <h2>${p.name}</h2>
+                <p>Tap to view pattern</p>
+                ${progressHtml}
+            </div>
+        `;
+    }).join('');
+    
+    // Click on card to view pattern info
     container.querySelectorAll('.pattern-card').forEach(card => {
-        card.addEventListener('click', () => loadPattern(card.dataset.file));
+        card.addEventListener('click', (e) => {
+            // Don't trigger if clicking resume button
+            if (e.target.classList.contains('resume-btn')) return;
+            loadPattern(card.dataset.file);
+        });
+    });
+    
+    // Resume buttons
+    container.querySelectorAll('.resume-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            const file = btn.dataset.file;
+            const sizeIndex = parseInt(btn.dataset.sizeIndex) || 0;
+            await loadPattern(file, sizeIndex, true);
+        });
     });
 }
 
 // Load and display pattern info
-async function loadPattern(file) {
+async function loadPattern(file, sizeIndex = 0, resumeImmediately = false) {
     try {
+        currentPatternFile = file;
         currentPattern = await loadYAML(`patterns/${file}`);
-        renderPatternInfo();
-        showView('patternInfo');
+        currentSizeIndex = sizeIndex;
+        
+        // Set up size
+        if (currentPattern.sizes && currentPattern.sizes.length > 0) {
+            currentSize = currentPattern.sizes[sizeIndex];
+        } else {
+            currentSize = {};
+        }
+        
+        if (resumeImmediately) {
+            flattenPattern();
+            loadProgress();
+            resetStepContainer();
+            renderStep();
+            showView('step');
+        } else {
+            renderPatternInfo();
+            showView('patternInfo');
+        }
     } catch (error) {
         console.error('Error loading pattern:', error);
         alert('Failed to load pattern');
@@ -107,16 +213,30 @@ function renderPatternInfo() {
         sizeSelect.innerHTML = p.sizes.map((s, i) => 
             `<option value="${i}">${s.name}</option>`
         ).join('');
-        currentSize = p.sizes[0];
+        sizeSelect.value = currentSizeIndex;
+        currentSize = p.sizes[currentSizeIndex];
         sizeSelector.classList.remove('hidden');
         
-        sizeSelect.addEventListener('change', (e) => {
-            currentSize = p.sizes[parseInt(e.target.value)];
-        });
+        sizeSelect.onchange = (e) => {
+            currentSizeIndex = parseInt(e.target.value);
+            currentSize = p.sizes[currentSizeIndex];
+        };
     } else {
         currentSize = {};
         sizeSelector.classList.add('hidden');
     }
+    
+    // Update start button text if there's saved progress
+    const startBtn = document.getElementById('start-pattern');
+    flattenPattern();
+    if (loadProgress()) {
+        startBtn.textContent = `Continue from Step ${currentStepIndex + 1}`;
+    } else {
+        startBtn.textContent = 'Start Knitting';
+    }
+    // Reset for fresh start check
+    currentStepIndex = 0;
+    completedSteps.clear();
 }
 
 // Flatten pattern into sequential steps
@@ -175,8 +295,11 @@ function substituteVariables(text) {
 // Start the pattern
 function startPattern() {
     flattenPattern();
-    currentStepIndex = 0;
-    completedSteps.clear();
+    // Try to load saved progress, otherwise start fresh
+    if (!loadProgress()) {
+        currentStepIndex = 0;
+        completedSteps.clear();
+    }
     resetStepContainer();
     renderStep();
     showView('step');
@@ -205,7 +328,11 @@ function renderStep() {
             </div>
         `;
         document.getElementById('next-btn').textContent = 'Done';
-        document.getElementById('next-btn').onclick = () => showView('patternList');
+        document.getElementById('next-btn').onclick = () => {
+            clearProgress();
+            renderPatternList();
+            showView('patternList');
+        };
         return;
     }
     
@@ -231,6 +358,9 @@ function renderStep() {
     document.getElementById('prev-btn').disabled = currentStepIndex === 0;
     document.getElementById('next-btn').textContent = 
         currentStepIndex === flattenedSteps.length - 1 ? 'Finish' : 'Next';
+    
+    // Save progress
+    saveProgress();
 }
 
 // Navigation
