@@ -3,10 +3,19 @@
   "version": "1.0.0",
   "description": "Easy to follow along knitting patterns",
   "license": "ISC",
-  "author": "",
+  "author": "Drue Wilding",
   "type": "module",
   "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint --fix",
+    "lint:check": "eslint",
+    "package:lint": "npx npm-package-json-lint .",
     "start": "live-server --port=3000",
     "test": "echo \"Error: no test specified\" && exit 1"
-  }
+  },
+  "devDependencies": {
+    "eslint-config-plus-prettier": "4.2.4"
+  },
+  "prettier": "eslint-config-plus-prettier/prettier"
 }
