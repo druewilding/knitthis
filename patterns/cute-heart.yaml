@@ -1,0 +1,38 @@
+name: Cute Heart (crochet)
+description: An easy to make crochet heart. Can be made in any size and colour.
+notes: This is US terminology. The heart is worked in the round from the middle out.
+
+skillLevel: Easy
+
+techniques:
+  - Magic ring
+  - Single crochet
+  - Double crochet
+  - Treble crochet
+  - Chain stitch
+  - Slip stitch
+
+materials:
+  - Any type of yarn
+  - Any crochet hook
+
+abbreviations:
+  ch: chain
+  sc: single crochet
+  dc: double crochet
+  tr: treble crochet
+  sts: stitches
+  slst: slip stitch
+
+sizes:
+  - name: All sizes
+
+sections:
+  - name: Heart
+    instructions:
+      - Start with a magic ring
+      - "**Row 1**|ch 3|3 tr into ring|4 dc into ring|1 tr into ring|4 dc into ring|3 tr into ring|ch 3|slst into ring"
+      - Tighten the magic ring
+      - "**Row 2**|2 sc on chain|3 dc into each of the next 3 sts|dc into each of the next 3 sts|2 dc into next stitch|dc into next stitch|2 dc into next stitch|dc into each of the next 3 sts|3 dc into each of the next 3 sts|2 sc on chain"
+      - "**Row 3**|sc into each of the next 2 sts|2 dc into each of the next 8 sts|dc into each of the next 6 sts|2 dc into the next stitch|dc into each of the next 6 sts|2 dc into each of the next 8 sts"
+      - Fasten off, leaving a long tail for hanging or sewing to a garment
