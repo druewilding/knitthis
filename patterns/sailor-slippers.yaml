@@ -206,7 +206,7 @@ sections:
         steps:
           - P all sts.
           - K1, ssk, k to 3sts before end, k2tog, k1.
-      - You should now have {topPanelSts} sts on your needles.
+      - You should now have {topPanelSts - 2} sts on your needles.
       - Turn your work to the WS and bind off purlwise.
       - Break the yarn.
 
