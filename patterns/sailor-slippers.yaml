@@ -156,6 +156,8 @@ sections:
         steps:
           - P all sts.
           - K1, ssk, k to 3sts before end, k2tog, k1
+      - Turn your work to the WS and p all sts.
+      - Break the *Colour A* and *Colour B* yarns as the top panel is now finished.
       - You should now have a total of {topPanelSts} sts on your needles.
 
   - name: Sole
