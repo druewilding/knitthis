@@ -63,7 +63,7 @@ sizes:
     topPanelRows: 16
     soleRepeats: 15
     seamYarnLength: 150
-  - name: UK size 6 (EU size 39)
+  - name: UK size 6 (EU size 39/40)
     heelSts: 34
     topPanelSts: 12
     topPanelRows: 18
@@ -81,7 +81,7 @@ sizes:
     topPanelRows: 22
     soleRepeats: 18
     seamYarnLength: 160
-  - name: UK size 9 (EU size 43)
+  - name: UK size 9 (EU size 43/44)
     heelSts: 35
     topPanelSts: 13
     topPanelRows: 24
