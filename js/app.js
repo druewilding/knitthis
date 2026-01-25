@@ -338,7 +338,7 @@ function processInstructions(instructions, sectionName) {
         instruction.steps.forEach((step) => {
           flattenedSteps.push({
             section: sectionName,
-            text: substituteVariables(step) + ` (rep ${i}/${repeatCount})`,
+            text: substituteVariables(step),
             repeatInfo: { current: i, total: repeatCount },
           });
         });
@@ -461,7 +461,11 @@ function renderStep() {
   document.getElementById("step-counter").textContent = `Step ${currentStepIndex + 1} of ${flattenedSteps.length}`;
 
   // Update content with formatting
-  document.getElementById("step-content").innerHTML = formatText(step.text);
+  let contentHtml = formatText(step.text);
+  if (step.repeatInfo) {
+    contentHtml += `<div class="repeat-indicator">rep ${step.repeatInfo.current}/${step.repeatInfo.total}</div>`;
+  }
+  document.getElementById("step-content").innerHTML = contentHtml;
 
   // Update progress bar
   const progress = ((currentStepIndex + 1) / flattenedSteps.length) * 100;

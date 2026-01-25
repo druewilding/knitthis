@@ -358,6 +358,13 @@ button {
   color: #666;
 }
 
+.repeat-indicator {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: #999;
+  font-weight: 400;
+}
+
 .step-divider {
   border: none;
   border-top: 1px solid #ddd;
