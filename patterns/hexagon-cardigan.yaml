@@ -37,6 +37,7 @@ sections:
       - repeat: 13
         steps:
           - Make 3 dc clusters into each space, use ch-2 spaces for the corners.
+      - You should now have 14 rows and 14 clusters on each edge
       - Make a joining row of 3 dc clusters along the top seam.
       - Extend the sleeve as follows ...
       - repeat: 12
